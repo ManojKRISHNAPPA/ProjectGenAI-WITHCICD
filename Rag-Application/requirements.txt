@@ -9,3 +9,4 @@ faiss_cpu
 python-dotenv
 pypdf
 streamlit
+langchain.chains
