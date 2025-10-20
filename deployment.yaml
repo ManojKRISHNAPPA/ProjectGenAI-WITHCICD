@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: md-genai
+  labels:
+    app: md-genai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: md-genai
+  template:
+    metadata:
+      labels:
+        app: md-genai
+    spec:
+      containers:
+      - name: md-genai
+        image: replace
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8501
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "2Gi"
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: md-genai-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: md-genai
+  ports:
+  - protocol: TCP
+    port: 80 # External port
+    targetPort: 8501 # Container port
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: md-genai-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: md-genai
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
