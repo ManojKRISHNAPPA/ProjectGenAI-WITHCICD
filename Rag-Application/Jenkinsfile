@@ -16,9 +16,10 @@ pipeline{
         stage('Docker build and Tag'){
             steps{
                 sh '''
-                    // cd Rag-Application/
+                    cd Rag-Application/
+                    pwd
                     printenv
-                    docker build -t ${IMAGE_NAME} -f Rag-Application/ .
+                    docker build -t ${IMAGE_NAME}  .
                 '''
             }
         }
