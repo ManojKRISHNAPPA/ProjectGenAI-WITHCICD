@@ -20,9 +20,12 @@ pipeline {
         stage('Build & Tag Docker Image') {
             steps {
                 script {
-                    sh 'printenv'
-                    sh 'cd Rag-Application/'
-                    sh 'docker build -t ${IMAGE_NAME} .'
+                sh '''
+                    cd Rag-Application/
+                    pwd
+                    printenv
+                    docker build -t ${IMAGE_NAME}  .
+                '''
                 }
             }
         }
@@ -66,6 +69,7 @@ pipeline {
                     restrictKubeConfigAccess: false,
                     serverUrl: 'https://74209E26C70B348EC102C0F4F7C90F08.sk1.us-west-2.eks.amazonaws.com'
                 ) {
+                    sh 'cd Rag-Application/;pwd'
                     sh "sed -i 's|replace|${IMAGE_NAME}|g' deployment.yaml"
                     sh "kubectl apply -f deployment.yaml -n ${NAMESPACE}"
                     sh "kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${NAMESPACE}"
