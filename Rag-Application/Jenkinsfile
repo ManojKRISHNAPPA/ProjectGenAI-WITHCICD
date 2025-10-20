@@ -1,0 +1,26 @@
+pipeline{
+    agent any
+
+    environment{
+        AWS_REGION = "us-west-2"
+        IMAGE_NAME = "manojkrishnappa/md-genai:${GIT_COMMIT}"
+    }
+
+    stages{
+        stage('git checkout'){
+            steps{
+                git branch: 'main', url: 'https://github.com/ManojKRISHNAPPA/ProjectGenAI-WITHCICD.git'
+            }
+        }
+
+        stage('Docker build and Tag'){
+            steps{
+                sh '''
+                    print env
+                    docker build -t ${IMAGE_NAME} .
+                '''
+            }
+        }
+       
+    }
+}
