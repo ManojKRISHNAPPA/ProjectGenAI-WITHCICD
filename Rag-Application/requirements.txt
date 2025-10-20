@@ -6,3 +6,4 @@ langchain_openai
 langchain_chroma
 langchain_core
 faiss_cpu
+dotenv
