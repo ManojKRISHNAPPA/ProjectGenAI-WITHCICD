@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                 sh '''
-                    cd Rag-Application
+                    cd ProjectGenAI-WITHCICD/Rag-Application
                     pwd
                     printenv
                     docker build -t ${IMAGE_NAME}  .
