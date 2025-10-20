@@ -20,13 +20,16 @@ pipeline {
         stage('Build & Tag Docker Image') {
             steps {
                 script {
-                sh '''
-                    cd ProjectGenAI-WITHCICD/Rag-Application
-                    pwd
-                    printenv
-                    docker build -t ${IMAGE_NAME}  .
-                '''
-                }
+                sh 'pwd;cd Rag-Application/ ; printenv'
+                sh 'docker build -t ${IMAGE_NAME}  .'
+                // sh '''
+
+                //     cd ProjectGenAI-WITHCICD/Rag-Application
+                //     pwd
+                //     printenv
+                //     docker build -t ${IMAGE_NAME}  .
+                // '''
+                // }
             }
         }
 
