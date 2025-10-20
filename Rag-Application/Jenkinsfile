@@ -29,9 +29,9 @@ pipeline {
 
         stage('Image-scan'){
             steps{
-                script{
+                script {
                     sh 'trivy image --format table -o trivy-image-report.html ${IMAGE_NAME}'
-                    archiveArtifacts articats: 'trivy-image-report.html', fingerprint: true
+                    archiveArtifacts artifacts: 'trivy-image-report.html', fingerprint: true
                 }
             }
         }
