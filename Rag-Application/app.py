@@ -14,7 +14,7 @@ load_dotenv()
 st.title("MD Rag Chatbot")
 
 openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
-model_name = st.sidebar.selectbox("Select OpenAI Model", ["gpt-4o-mini", "gpt-3.5-turbo", "gpt-4o","gpt-5","text-embedding-3-small"])
+model_name = st.sidebar.selectbox("Select OpenAI Model", ["gpt-4o-mini", "gpt-3.5-turbo", "gpt-4o","gpt-5-nano","text-embedding-3-small"])
 temperature = st.sidebar.slider("Temperature", 0.0, 1.0, 0.7)
 max_tokens = st.sidebar.slider("Max Tokens", 50, 500, 300)
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
